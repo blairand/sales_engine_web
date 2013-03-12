@@ -62,5 +62,46 @@ describe "/merchants/" do
         expect( output[0]["name"] ).to eq "blairiscool"
       end
     end
-  end  
+  end
+
+  describe "relationships" do 
+    context "/merchants/:id/items" do 
+      it "returns a collection of items associated with that merchant"
+    end 
+    context "/merchants/:id/invoices" do 
+      it "returns a collection of invoices associated with that merchant"
+    end
+  end
+
+  describe "business intelligence for all merchants" do 
+    context "/merchants/most_revenue?quantity=x" do 
+      it "returns the top x merchants ranked by total revenue"
+    end
+
+    context "/merchants/most_items?quantity=x" do
+      it "returns the top x merchants ranked by total number of items sold"
+    end
+    context "/merchants/revenue?date=x" do
+      it "returns the total revenue for date x across all merchants"
+    end
+  end
+
+  describe "business intelligence for a single merchant" do 
+    context "/merchants/:id/revenue" do
+      it "returns the total revenue for that merchant across all transactions"
+    end
+    
+    context "/merchants/:id/revenue?date=x" do
+      it "returns the total revenue for that merchant for a specific invoice date x"
+    end
+
+    context "/merchants/:id/favorite_customer" do
+      it "returns the customer who has conducted the most successful transactions"
+    end
+    
+    context "/merchants/:id/customers_with_pending_invoices" do
+      it "returns a collection of customers which have pending (unpaid) invoices"
+    end
+  end
+
 end

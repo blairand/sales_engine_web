@@ -21,7 +21,7 @@ module SalesEngineWeb
 
     describe '.create' do
       it 'creates a invoice' do
-        invoice = Invoice.create(
+        invoice = SalesEngineWeb::Invoice.create(
           :customer_id => 1,
           :merchant_id => 2,
           :status => "Shipped")
@@ -154,6 +154,73 @@ module SalesEngineWeb
         expect( target.merchant_id ).to eq "2"
       end
     end
+
+  describe ".find_all" do
+    context "given a customer_id" do
+      it "finds all matching invoices" do 
+        invoice1 = SalesEngineWeb::Invoice.create(
+          :customer_id => 1,
+          :merchant_id => 2,
+          :status => "Shipped")
+        invoice2 = SalesEngineWeb::Invoice.create(
+          :customer_id => 1,
+          :merchant_id => 2,
+          :status => "Shipped")
+        target = Invoice.find_all_by_customer_id(1)
+        expect( target.size ).to eq 2
+      end
+    end
+
+    context "given a merchant_id" do
+      it "finds all matching invoices" do 
+        invoice1 = SalesEngineWeb::Invoice.create(
+          :customer_id => 1,
+          :merchant_id => 2,
+          :status => "Shipped")
+        invoice2 = SalesEngineWeb::Invoice.create(
+          :customer_id => 1,
+          :merchant_id => 2,
+          :status => "Shipped")
+        target = Invoice.find_all_by_merchant_id(2)
+        expect( target.size ).to eq 2
+      end
+    end
+
+    context "given a status" do
+      it "finds all matching invoices" do 
+        invoice1 = SalesEngineWeb::Invoice.create(
+          :customer_id => 1,
+          :merchant_id => 2,
+          :status => "Shipped")
+        invoice2 = SalesEngineWeb::Invoice.create(
+          :customer_id => 1,
+          :merchant_id => 2,
+          :status => "Shipped")
+        target = Invoice.find_all_by_status("Shipped")
+        expect( target.size ).to eq 2
+      end
+    end
+  end
+
+  describe "#transactions" do
+    it "returns a collection of associated Transactions"
+  end
+
+  describe "#invoice_items" do
+    it "returns a collection of associated Invoice_items"
+  end
+   
+  describe "#items" do
+    it "returns a collection of associated Items"
+  end
+
+  describe "#customer" do
+    it "returns the associated customer"
+  end
+  
+  describe "#merchant" do
+    it "returns the associated merchant"
+  end
 
   end
 end
