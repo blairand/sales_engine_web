@@ -26,6 +26,10 @@ module SalesEngineWeb
       { :id => id, :name => name}
     end
 
+    def to_json
+      {:id => id, :name => name}.to_json
+    end
+
     def self.find(params)
       if params[:id]
         Merchant.find_by_id(params[:id])
@@ -47,10 +51,6 @@ module SalesEngineWeb
     def self.find_all_by_name(name)
       result = merchants.where(Sequel.ilike(:name, "%#{name}%")).to_a
       result.collect{|result| new(result)}
-    end
-
-    def to_json
-      {:id => id, :name => name}.to_json
     end
 
     def self.random

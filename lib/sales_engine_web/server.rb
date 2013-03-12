@@ -17,5 +17,14 @@ module SalesEngineWeb
     get '/merchants/random' do
       Merchant.random.to_json
     end
+
+    # get '/invoices/find' do
+    #   Invoice.find(params).to_json
+    # end
+
+    get '/invoices/random' do
+      Invoice.random.to_json
+    end
+    
   end
 end
