@@ -8,11 +8,21 @@ module SalesEngineWeb
     end
 
     describe ".create" do
-      it 'creates customer'
+      it 'creates customer' do
+        customer = SalesEngineWeb::Customer.create(
+          :first_name => "Blair",
+          :last_name => "Anderson")
+        expect( customer.id ).to eq 1
+      end
     end
 
     describe "random" do 
-      it "returns a random customer"
+      it "returns a random customer" do
+        invoice1 = SalesEngineWeb::Customer.create(
+          :first_name => "Blair",
+          :last_name => "Anderson")
+        expect( Customer.random ).to be_kind_of(SalesEngineWeb::Customer)
+      end
     end
 
     context ".find" do

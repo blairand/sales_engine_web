@@ -21,12 +21,28 @@ module SalesEngineWeb
       @environment ||= :development
     end
 
+    def self.customers
+      database[:customers]
+    end
+
     def self.invoices
       database[:invoices]
     end
 
+    def self.invoice_items
+      database[:invoice_items]
+    end
+
+    def self.items
+      database[:items]
+    end
+
     def self.merchants
       database[:merchants]
+    end
+
+    def self.transactions
+      database[:transactions]
     end
 
   end
