@@ -39,6 +39,121 @@ module SalesEngineWeb
       end
     end
 
+    describe ".find" do 
+      it "takes id and routes to find_by_id" do 
+        invoice1 = SalesEngineWeb::Invoice.create(
+          :customer_id => 1,
+          :merchant_id => 2,
+          :status => "Shipped")
+        params = {:id => 1}
+        Invoice.should_receive(:find_by_id)
+        Invoice.should_not_receive(:find_by_customer_id)
+        Invoice.should_not_receive(:find_by_merchant_id)
+        Invoice.should_not_receive(:find_by_status)
+        target = Invoice.find(params)
+      end
+    end
+
+    describe ".find" do 
+      it "takes customer_id and routes to find_by_customer_id" do 
+        invoice1 = SalesEngineWeb::Invoice.create(
+          :customer_id => 1,
+          :merchant_id => 2,
+          :status => "Shipped")
+        params = {:customer_id => 1}
+        Invoice.should_not_receive(:find_by_id)
+        Invoice.should_receive(:find_by_customer_id)
+        Invoice.should_not_receive(:find_by_merchant_id)
+        Invoice.should_not_receive(:find_by_status)
+        target = Invoice.find(params)
+      end
+    end
+
+    describe ".find" do 
+      it "takes merchant_id and routes to find_by_merchant_id" do 
+        invoice1 = SalesEngineWeb::Invoice.create(
+          :customer_id => 1,
+          :merchant_id => 2,
+          :status => "Shipped")
+        params = {:merchant_id => 1}
+        Invoice.should_not_receive(:find_by_id)
+        Invoice.should_not_receive(:find_by_customer_id)
+        Invoice.should_receive(:find_by_merchant_id)
+        target = Invoice.find(params)
+      end
+    end
+
+    describe ".find" do 
+      it "takes status and routes to find_by_status" do 
+        invoice1 = SalesEngineWeb::Invoice.create(
+          :customer_id => 1,
+          :merchant_id => 2,
+          :status => "Shipped")
+        params = {:status => "Shipped"}
+        Invoice.should_not_receive(:find_by_id)
+        Invoice.should_not_receive(:find_by_customer_id)
+        Invoice.should_not_receive(:find_by_merchant_id)
+        Invoice.should_receive(:find_by_status)
+        target = Invoice.find(params)
+      end
+    end
+
+    describe ".find_by_status" do 
+      it "returns first invoice matching the status" do 
+        invoice1 = SalesEngineWeb::Invoice.create(
+          :customer_id => 1,
+          :merchant_id => 2,
+          :status => "Shipped")
+        target = Invoice.find_by_status("Shipped")
+        expect( target.customer_id ).to eq "1"
+      end
+    end
+
+    describe ".find_by_id" do 
+      it "returns invoice" do 
+        invoice1 = SalesEngineWeb::Invoice.create(
+          :customer_id => 1,
+          :merchant_id => 2,
+          :status => "Shipped")
+        target = Invoice.find_by_id(1)
+        expect( target.id ).to eq 1
+      end
+    end
+
+    describe ".find_by_customer_id" do 
+      it "returns invoice" do 
+        invoice1 = SalesEngineWeb::Invoice.create(
+          :customer_id => 1,
+          :merchant_id => 2,
+          :status => "Shipped")
+        target = Invoice.find_by_customer_id(1)
+        expect( target.customer_id ).to eq "1"
+        expect( target.merchant_id ).to eq "2"
+      end
+    end
+
+    describe ".find_by_merchant_id" do 
+      it "returns nil for missing invoice" do 
+        invoice1 = SalesEngineWeb::Invoice.create(
+          :customer_id => 1,
+          :merchant_id => 2,
+          :status => "Shipped")
+        target = Invoice.find_by_merchant_id(1)
+        expect(target).to eq nil
+      end
+    end
+
+    describe ".find_by_merchant_id" do 
+      it "returns invoice" do 
+        invoice1 = SalesEngineWeb::Invoice.create(
+          :customer_id => 1,
+          :merchant_id => 2,
+          :status => "Shipped")
+        target = Invoice.find_by_merchant_id(2)
+        expect( target.customer_id ).to eq "1"
+        expect( target.merchant_id ).to eq "2"
+      end
+    end
 
   end
 end

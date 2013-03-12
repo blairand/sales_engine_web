@@ -36,6 +36,38 @@ module SalesEngineWeb
       {id: id, customer_id: customer_id, merchant_id: merchant_id, status: status}.to_json
     end
 
+    def self.find(params)
+      if params[:id]
+        find_by_id(params[:id])
+      elsif params[:customer_id]
+        find_by_customer_id(params[:customer_id])
+      elsif params[:merchant_id]
+        find_by_merchant_id(params[:merchant_id])
+      else
+        find_by_status(params[:status])
+      end
+    end
+    
+    def self.find_by_id(id)
+      result = invoices.where(:id => id.to_i).first
+      new(result) if result
+    end
+
+    def self.find_by_customer_id(id)
+      result = invoices.where(:customer_id => id.to_i).first
+      new(result) if result
+    end
+
+    def self.find_by_merchant_id(id)
+      result = invoices.where(:merchant_id => id.to_i).first
+      new(result) if result
+    end
+
+    def self.find_by_status(status)
+      result = invoices.limit(1).where(:status => status).first
+      new(result) if result
+    end
+
     def self.random
       result = invoices.to_a.sample
       new(result) if result
