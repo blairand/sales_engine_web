@@ -14,8 +14,8 @@ module SalesEngineWeb
         merchant = Merchant.create(:name => "Jumpstart Lab")
         params = {:name => "Jumpstart Lab"}
         Merchant.should_not_receive(:find_by_id)
+        Merchant.should_receive(:find_by_name)
         target = Merchant.find(params)
-        # expect(target.name).to eq "Jumpstart Lab" 
       end
     end
     describe ".find" do 
@@ -23,33 +23,10 @@ module SalesEngineWeb
         merchant = Merchant.create(:name => "Jumpstart Lab")
         params = {:id => 1}
         Merchant.should_not_receive(:find_by_name)
+        Merchant.should_receive(:find_by_id)
         target = Merchant.find(params)
-        # expect(target.name).to eq "Jumpstart Lab" 
       end
     end
-
-
-# describe ".create" do
-#   context "given bad parameters" do
-#     it "it does not save itself" do
-#       params = {:identifier => "" }
-#       subject.should_not_receive(:register)
-#       expect(subject.create(params)).to be_false
-#     end
-#   end
-
-# +        context "when given all the correct parameters" do
-# +          context "when it does not already exist" do
-# +            params = {:identifier => "jumpstartlab", :rootUrl => "http://jumpstartlab.com"}
-#             subject.should_receive(:register).with(params).and_return(true)
-#             expect(subject.create(params)).to be_true
-#           end
-#         end
-#       end
-
-
-
-
 
     describe '.find_by_id' do
       it "finds a merchant" do
