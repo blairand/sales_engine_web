@@ -49,4 +49,18 @@ describe "/merchants/" do
       end
     end
   end
+
+  describe "find all" do 
+    context "given name 'blairiscool'" do 
+      it "finds all the merchants named blairiscool" do 
+        merchant1 = SalesEngineWeb::Merchant.create(:name => "blairiscool")
+        merchant2 = SalesEngineWeb::Merchant.create(:name => "blairiscool")
+        merchant3 = SalesEngineWeb::Merchant.create(:name => "blairiscool")
+        get 'merchants/find_all?name=blairiscool'
+        output = JSON.parse(last_response.body)
+        expect( output.size ).to eq 3
+        expect( output[0]["name"] ).to eq "blairiscool"
+      end
+    end
+  end  
 end

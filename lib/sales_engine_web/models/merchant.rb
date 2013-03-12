@@ -26,7 +26,15 @@ module SalesEngineWeb
       { :id => id, :name => name}
     end
 
-    def self.find(id)
+    def self.find(params)
+      if params[:id]
+        Merchant.find_by_id(params[:id])
+      else
+        Merchant.find_by_name(params[:name])
+      end
+    end
+
+    def self.find_by_id(id)
       result = merchants.where(:id => id.to_i).limit(1).first
       new(result) if result
     end
@@ -34,6 +42,11 @@ module SalesEngineWeb
     def self.find_by_name(name)
       result = merchants.limit(1).where(Sequel.ilike(:name, "%#{name}%")).first
       new(result) if result
+    end
+
+    def self.find_all_by_name(name)
+      result = merchants.where(Sequel.ilike(:name, "%#{name}%")).to_a
+      result.collect{|result| new(result)}
     end
 
     def to_json

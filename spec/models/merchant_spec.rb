@@ -9,10 +9,52 @@ module SalesEngineWeb
       end
     end
 
-    describe '.find' do
+    describe ".find" do 
+      it "takes name and routes to find_by_name" do 
+        merchant = Merchant.create(:name => "Jumpstart Lab")
+        params = {:name => "Jumpstart Lab"}
+        Merchant.should_not_receive(:find_by_id)
+        target = Merchant.find(params)
+        # expect(target.name).to eq "Jumpstart Lab" 
+      end
+    end
+    describe ".find" do 
+      it "takes id and routes to find_by_id" do 
+        merchant = Merchant.create(:name => "Jumpstart Lab")
+        params = {:id => 1}
+        Merchant.should_not_receive(:find_by_name)
+        target = Merchant.find(params)
+        # expect(target.name).to eq "Jumpstart Lab" 
+      end
+    end
+
+
+# describe ".create" do
+#   context "given bad parameters" do
+#     it "it does not save itself" do
+#       params = {:identifier => "" }
+#       subject.should_not_receive(:register)
+#       expect(subject.create(params)).to be_false
+#     end
+#   end
+
+# +        context "when given all the correct parameters" do
+# +          context "when it does not already exist" do
+# +            params = {:identifier => "jumpstartlab", :rootUrl => "http://jumpstartlab.com"}
+#             subject.should_receive(:register).with(params).and_return(true)
+#             expect(subject.create(params)).to be_true
+#           end
+#         end
+#       end
+
+
+
+
+
+    describe '.find_by_id' do
       it "finds a merchant" do
         target = Merchant.create(:name => "Jumpstart Lab")
-        found  = Merchant.find( target.id )
+        found  = Merchant.find_by_id( target.id )
         expect( found.id ).to eq target.id
         expect( found.name ).to eq target.name
       end
@@ -41,6 +83,23 @@ module SalesEngineWeb
       end
     end
 
-    it "implements to_hash"
+    it "implements to_hash" do 
+      merchant = Merchant.create(:name => "Jumpstart Lab")
+      merchant_hash = merchant.to_hash
+      expect( merchant_hash ).to be_kind_of Hash
+      expect( merchant_hash[:name] ).to eq "Jumpstart Lab"
+    end
+
+    describe ".find_all" do 
+      it "finds all the merchants named blairiscool" do 
+        merchant1 = SalesEngineWeb::Merchant.create(:name => "blairiscool")
+        merchant2 = SalesEngineWeb::Merchant.create(:name => "blairiscool")
+        merchant3 = SalesEngineWeb::Merchant.create(:name => "blairiscool")
+        output = Merchant.find_all_by_name("blairiscool")
+        expect( output.size ).to eq 3
+        expect( output[0].name ).to eq "blairiscool"
+      end      
+    end
+
   end
 end

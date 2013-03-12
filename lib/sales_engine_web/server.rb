@@ -1,13 +1,13 @@
 module SalesEngineWeb
   class Server < Sinatra::Base
     get '/merchants/find' do
+      Merchant.find(params).to_json
+    end
+
+    get '/merchants/find_all' do 
       status 200
-      if params[:id]
-        merchant = Merchant.find(params[:id])
-      else
-        merchant = Merchant.find_by_name(params[:name])
-      end
-      body merchant.to_json
+      merchants = Merchant.find_all_by_name(params[:name])
+      body merchants.collect{|merchant| merchant.to_hash}.to_json
     end
 
     get '/merchants/random' do
