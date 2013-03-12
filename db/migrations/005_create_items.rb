@@ -5,7 +5,7 @@ Sequel.migration do
       String :name
       String :description
       Integer :unit_price
-      foreign_key :merchant_id
+      foreign_key :merchant_id, :merchants
       Datetime :created_at
       Datetime :updated_at 
     end

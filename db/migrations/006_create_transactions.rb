@@ -2,7 +2,7 @@ Sequel.migration do
   change do
     create_table :transactions do
       primary_key :id
-      foreign_key :invoice_id
+      foreign_key :invoice_id, :invoices
       String :credit_card_number
       String :credit_card_expiration_date
       String :result

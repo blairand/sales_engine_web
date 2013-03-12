@@ -2,8 +2,8 @@ Sequel.migration do
   change do
     create_table :invoices do
       primary_key :id
-      String :customer_id
-      String :merchant_id
+      foreign_key :customer_id, :customers
+      foreign_key :merchant_id, :merchants
       String :status
       Datetime :created_at
       Datetime :updated_at 
