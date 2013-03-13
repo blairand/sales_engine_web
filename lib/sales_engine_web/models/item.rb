@@ -27,7 +27,7 @@ module SalesEngineWeb
       {id: id, name: name, description: description, unit_price: unit_price, merchant_id: merchant_id}
     end
 
-    def to_json
+    def to_json(*args)
       {id: id, name: name, description: description, unit_price: unit_price, merchant_id: merchant_id}.to_json
     end
 

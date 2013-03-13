@@ -25,7 +25,7 @@ module SalesEngineWeb
       {id: id, customer_id: customer_id, merchant_id: merchant_id, status: status}
     end
 
-    def to_json
+    def to_json(*args)
       {id: id, customer_id: customer_id, merchant_id: merchant_id, status: status}.to_json
     end
 

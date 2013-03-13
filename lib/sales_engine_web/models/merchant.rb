@@ -19,7 +19,7 @@ module SalesEngineWeb
       { :id => id, :name => name}
     end
 
-    def to_json
+    def to_json(*args)
       {:id => id, :name => name}.to_json
     end
 
