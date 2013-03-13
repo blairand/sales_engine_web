@@ -40,18 +40,18 @@ module SalesEngineWeb
     #   InvoiceItem.random.to_json
     # end
 
-    # get '/items/find' do
-    #   Item.find(params).to_json
-    # end
+    get '/items/find' do
+      Item.find(params).to_json
+    end
 
-    # get '/items/find_all' do
-    #   items = Item.find_all(params)
-    #   body items.map{|item| item.to_hash}.to_json
-    # end
+    get '/items/find_all' do
+      items = Item.find_all(params)
+      body items.map{|item| item.to_hash}.to_json
+    end
 
-    # get '/items/random' do
-    #   Item.random.to_json
-    # end
+    get '/items/random' do
+      Item.random.to_json
+    end
 
     get '/merchants/find' do
       Merchant.find(params).to_json

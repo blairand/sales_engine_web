@@ -5,8 +5,8 @@ module SalesEngineWeb
       self.new(params).save
     end
 
-    def add(invoice)
-      table.insert(invoice.to_hash)
+    def add(subject)
+      table.insert(subject.to_hash)
     end
 
     def random
