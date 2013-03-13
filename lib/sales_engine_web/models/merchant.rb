@@ -2,7 +2,7 @@ require './lib/sales_engine_web/models/database'
 
 module SalesEngineWeb
   class Merchant
-    extend KlassMethods
+    extend FinderMethods
     attr_reader :id, :name
 
     def initialize(params)

@@ -2,7 +2,7 @@ require './lib/sales_engine_web/models/database'
 
 module SalesEngineWeb
   class Invoice
-    extend KlassMethods
+    extend FinderMethods
     attr_reader :id, :customer_id, :merchant_id, :status
 
     def initialize(params)

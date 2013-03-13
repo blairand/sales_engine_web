@@ -2,7 +2,7 @@ require './lib/sales_engine_web/models/database'
 
 module SalesEngineWeb
   class Customer
-    extend KlassMethods
+    extend FinderMethods
 
     attr_reader :id, :first_name, :last_name
 
