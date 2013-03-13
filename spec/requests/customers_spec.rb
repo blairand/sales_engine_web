@@ -8,44 +8,46 @@ describe "/customers/" do
   end
 
   before(:each) do
-    # customer1
+    customer1
   end
 
-  # let(:customer1){ SalesEngineWeb::Customer.create(
-  #   ) }
+  let(:customer1){ SalesEngineWeb::Customer.create(
+      :first_name => "Blair",
+      :last_name => "Anderson"
+      )}
   
   describe "random" do 
-    it "returns a random customer"
+    it "returns a random customer" do
+      get '/customers/random'
+      output = JSON.parse(last_response.body)
+      expect( output['first_name'] ).to eq 'Blair'
+    end
   end
 
   context "find" do
-
     describe "find by id" do 
       it "finds customer by id" do 
-        pending
         get "/customers/find?id=#{ customer1.id }"
         output = JSON.parse(last_response.body)
-        expect( output['id'] ).to eq customer1.id
         expect( output['first_name'] ).to eq customer1.first_name
+        expect( output['last_name'] ).to eq customer1.last_name
       end
     end
     
     describe "find by first_name" do 
       it "finds an customer by name" do 
-        pending
         get "/customers/find?first_name=#{ customer1.first_name }"
         output = JSON.parse(last_response.body)
-        expect( output['id'] ).to eq customer1.id
         expect( output['first_name'] ).to eq customer1.first_name
+        expect( output['last_name'] ).to eq customer1.last_name
       end
     end
 
     describe "find by last_name" do 
       it "finds an customer by name" do 
-        pending
         get "/customers/find?last_name=#{ customer1.last_name }"
         output = JSON.parse(last_response.body)
-        expect( output['id'] ).to eq customer1.id
+        expect( output['first_name'] ).to eq customer1.first_name
         expect( output['last_name'] ).to eq customer1.last_name
       end
     end
@@ -54,19 +56,21 @@ describe "/customers/" do
   context "find_all" do
    describe "find_all by first_name" do 
       it "finds customers by first name" do 
-        pending
         get "/customers/find_all?first_name=#{ customer1.first_name }"
         output = JSON.parse(last_response.body)
-        #expect something
+        expect( output.size ).to eq 1
+        expect( output[0]['first_name'] ).to eq customer1.first_name
+        expect( output[0]['last_name'] ).to eq customer1.last_name
       end
     end
 
     describe "find_all by last_name" do 
       it "finds customers by last name" do 
-        pending
         get "/customers/find_all?last_name=#{ customer1.last_name }"
         output = JSON.parse(last_response.body)
-        #expect something
+        expect( output.size ).to eq 1
+        expect( output[0]['first_name'] ).to eq customer1.first_name
+        expect( output[0]['last_name'] ).to eq customer1.last_name
       end
     end
   end

@@ -3,8 +3,15 @@ require 'spec_helper'
 module SalesEngineWeb
   describe Customer do
 
+    let(:customer1){ SalesEngineWeb::Customer.create(
+      :first_name => "Blair",
+      :last_name => "Anderson"
+      )}
+
     it "implements to_hash" do
-      pending
+      customer = customer1.to_hash
+      expect( customer ).to be_kind_of Hash
+      expect( customer[:first_name] ).to eq "Blair"
     end
 
     describe ".create" do
@@ -18,39 +25,48 @@ module SalesEngineWeb
 
     describe "random" do 
       it "returns a random customer" do
-        invoice1 = SalesEngineWeb::Customer.create(
-          :first_name => "Blair",
-          :last_name => "Anderson")
-        expect( Customer.random ).to be_kind_of(SalesEngineWeb::Customer)
+        target = customer1
+        customer = Customer.random
+        expect( customer ).to be_kind_of(SalesEngineWeb::Customer)
       end
     end
 
     context ".find" do
       it "finds a customer by id" do 
-        pending
+        target = customer1
         customer = Customer.find_by_id(1)
+        expect( customer.first_name ).to eq target.first_name
+        expect( customer.last_name ).to eq target.last_name
       end
 
       it "finds a customer by first_name" do 
-        pending
+        target = customer1
         customer = Customer.find_by_first_name("#{ customer1.first_name }")
+        expect( customer.first_name ).to eq target.first_name
+        expect( customer.last_name ).to eq target.last_name
       end
 
       it "finds a customer by last_name" do 
-        pending
+        target = customer1
         customer = Customer.find_by_last_name("#{ customer1.last_name }")
+        expect( customer.first_name ).to eq target.first_name
+        expect( customer.last_name ).to eq target.last_name
       end
     end
 
     context ".find_all" do
       it "find_all customers by first_name" do 
-        pending
-        customer = Customer.find_all_by_first_name("#{ customer1.first_name }")
+        target = customer1
+        customers = Customer.find_all_by_first_name("Blair")
+        expect( customers.size ).to eq 1
+        expect( customers.first.first_name ).to eq "Blair"
       end
 
       it "find_all customers by last_name" do 
-        pending
-        customer = Customer.find_all_by_last_name("#{ customer1.last_name }")
+        target = customer1
+        customers = Customer.find_all_by_last_name("#{ customer1.last_name }")
+        expect( customers.size ).to eq 1
+        expect( customers.first.first_name ).to eq "Blair"
       end
     end
 

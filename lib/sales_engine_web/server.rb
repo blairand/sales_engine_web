@@ -1,14 +1,14 @@
 module SalesEngineWeb
   class Server < Sinatra::Base
 
-    # get '/customers/find' do
-    #   Customer.find(params).to_json
-    # end
+    get '/customers/find' do
+      Customer.find(params).to_json
+    end
 
-    # get '/customers/find_all' do
-    #   customers = Customer.find_all(params)
-    #   body customers.map{|customer| customer.to_hash}.to_json
-    # end
+    get '/customers/find_all' do
+      customers = Customer.find_all(params)
+      body customers.map{|customer| customer.to_hash}.to_json
+    end
 
     get '/customers/random' do
       Customer.random.to_json
@@ -58,7 +58,7 @@ module SalesEngineWeb
     end
 
     get '/merchants/find_all' do 
-      merchants = Merchant.find_all_by_name(params[:name])
+      merchants = Merchant.find_all(params)
       body merchants.collect{|merchant| merchant.to_hash}.to_json
     end
 

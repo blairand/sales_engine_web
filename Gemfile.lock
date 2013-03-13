@@ -55,6 +55,7 @@ DEPENDENCIES
   guard
   guard-rspec
   json
+  pry
   rack-test
   rake
   rb-fsevent (~> 0.9)
