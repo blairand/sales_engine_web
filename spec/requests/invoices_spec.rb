@@ -13,32 +13,47 @@ describe "/invoices/" do
     invoice1
     invoice2
     invoice3
+    transaction1
+    item1
+    invoice_item1
   end
 
   let(:customer1){ SalesEngineWeb::Customer.create(
-      :first_name => "Blair",
-      :last_name => "Anderson"
-      )}
+    :first_name => "Blair",
+    :last_name => "Anderson")}
 
   let(:merchant1){ SalesEngineWeb::Merchant.create(
-    :name => "Jumpstart Lab"
-    ) }
+    :name => "Jumpstart Lab") }
 
   let(:invoice1){ SalesEngineWeb::Invoice.create(
     :customer_id => 1,
     :merchant_id => 1,
-    :status => "Shipped"
-    ) }
+    :status => "Shipped") }
   let(:invoice2){ SalesEngineWeb::Invoice.create(
     :customer_id => 1,
     :merchant_id => 1,
-    :status => "Shipped"
-    ) }
+    :status => "Shipped") }
   let(:invoice3){ SalesEngineWeb::Invoice.create(
     :customer_id => 1,
     :merchant_id => 1,
-    :status => "Shipped"
+    :status => "Shipped") }
+  let(:item1){ SalesEngineWeb::Item.create(
+    :name => "iPhone5",
+    :description => "The result is iPhone 5: the thinnest, lightest, fastest iPhone ever",
+    :unit_price => 49999,
+    :merchant_id => 1
     ) }
+   let(:transaction1){ SalesEngineWeb::Transaction.create(
+    :invoice_id => 1,
+    :credit_card_number => 444412344440987,
+    :credit_card_expiration_date => 1,
+    :result => "Success") }
+
+   let(:invoice_item1){ SalesEngineWeb::InvoiceItem.create(
+        :item_id => 1,
+        :invoice_id=> 1,
+        :quantity => 1,
+        :unit_price=> 49999) }
 
   describe "random" do
     it "returns a random invoice" do
@@ -110,12 +125,22 @@ describe "/invoices/" do
 
   context "relationships" do 
     describe "/invoices/:id/transactions" do 
-      it "returns a collection of associated transactions"
+      it "returns a collection of associated transactions" do
+        get "/invoices/1/transactions"
+        output = JSON.parse(last_response.body)
+        expect( output.size ).to eq 1
+        expect( output[0]["credit_card_number"]).to eq "444412344440987"
+      end
     end
 
-    describe "/invoices/:id/invoice_items" do
-      it "returns a collection of associated invoice items"
-    end
+    # describe "/invoices/:id/invoice_items" do
+    #   it "returns a collection of associated invoice items" do
+    #     get '/invoices/1/invoice_items'
+    #     output = JSON.parse(last_response.body)
+    #     expect( output.size ).to eq 1
+    #     expect( output[0]["credit_card_number"]).to eq "444412344440987"
+    #   end
+    # end
     
     describe "/invoices/:id/items" do
       it "returns a collection of associated items"

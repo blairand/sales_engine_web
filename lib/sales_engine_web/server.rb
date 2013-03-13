@@ -13,6 +13,15 @@ module SalesEngineWeb
       Customer.random.to_json
     end
 
+    get '/customers/:id/invoices' do |id|
+      Invoice.find_all_by_customer_id(id).to_json
+    end
+
+    get '/customers/:id/transactions' do |id|
+      invoices = Invoice.find_all_by_customer_id(id)
+      invoices.map{|invoice|Transaction.find_by_invoice_id(invoice.id)}.to_json
+    end
+
     get '/invoices/find' do
       Invoice.find(params).to_json
     end
@@ -23,6 +32,27 @@ module SalesEngineWeb
 
     get '/invoices/random' do
       Invoice.random.to_json
+    end
+    
+    get '/invoices/:id/transactions' do |id|
+    # returns a collection of associated transactions
+      Transaction.find_all_by_invoice_id(id).to_json
+    end
+
+    # get '/invoices/:id/invoice_items' do |id|
+    #   InvoiceItem.find_all_by_invoice_id(id).to_json
+    # end
+
+    get '/invoices/:id/items' do |id|
+      #returns a collection of associated items
+    end
+
+    get '/invoices/:id/customer' do |id|
+      #returns the associated customer
+    end
+
+    get '/invoices/:id/merchant' do |id|
+      #returns the associated merchant
     end
 
     get '/invoice_items/find' do

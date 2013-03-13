@@ -36,10 +36,10 @@ describe "/invoice_items/" do
       ) }
 
     let(:invoice_item1){ SalesEngineWeb::InvoiceItem.create(
-          :item_id => 1,
-          :invoice_id=> 1,
-          :quantity => 1,
-          :unit_price=> 49999) }
+        :item_id => 1,
+        :invoice_id=> 1,
+        :quantity => 1,
+        :unit_price=> 49999) }
 
   describe "random" do
     it "returns a random invoice_item"  do
