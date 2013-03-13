@@ -61,17 +61,17 @@ module SalesEngineWeb
       Merchant.random.to_json
     end
 
-    # get '/transactions/find' do
-    #   Transaction.find(params).to_json
-    # end
+    get '/transactions/find' do
+      Transaction.find(params).to_json
+    end
 
-    # get '/transactions/find_all' do
-    #   Transaction.find_all(params).to_json
-    # end
+    get '/transactions/find_all' do
+      Transaction.find_all(params).to_json
+    end
 
-    # get '/transactions/random' do
-    #   Transaction.random.to_json
-    # end
+    get '/transactions/random' do
+      Transaction.random.to_json
+    end
 
   end
 end
