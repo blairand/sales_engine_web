@@ -1,0 +1,23 @@
+<html>
+<head><title>Sales Engine Web</title></head>
+
+<body>
+  <h1> Input your CSVs to my Sales Engine</h1>
+<fieldset>
+  <legend>Engine Importer</legend>
+  <form action="/upload" method="post">
+    <p>Please input your csv:<br />
+      <input name="csv_file" type="file" />
+    <p>CSV type:<br />
+      <input name="csv_type" type="radio" value="Customer" checked="checked" />Customer
+      <input name="csv_type" type="radio" value="Invoice" />Invoice
+      <input name="csv_type" type="radio" value="InvoiceItem" />Invoice Item
+      <input name="csv_type" type="radio" value="Item" />Item
+      <input name="csv_type" type="radio" value="Transaction" />Transaction
+      <input name="csv_type" type="radio" value="Merchant" />Merchant<br />
+    </P>
+      <input name="submit" type="submit" value="Upload" />
+  </form>
+</fieldset>
+</body>
+</html>

@@ -39,19 +39,21 @@ module SalesEngineWeb
       end
     end
 
-    def has_many(things)
-      new_class = things[0..-2].split('_').map{|e| e.capitalize}.join
-      define_method things do
+    def self.new_class(association)
+      association[0..-2].split('_').map{|e| e.capitalize}.join
+    end
+
+    def has_many(association)
+      new_class = FinderMethods.new_class(association)
+      define_method association do
         things_class = SalesEngineWeb.const_get(new_class)
         method_name = "find_all_by_#{ self.class.to_s.split('::').last.downcase }_id"
         things_class.send(method_name, id)
       end
     end
 
-
     def has_many_through(association, through)
-      new_class = association[0..-2].split('_').map{|e| e.capitalize}.join
-
+      new_class = FinderMethods.new_class(association)
       define_method association do
         assoc_class = SalesEngineWeb.const_get(new_class)
         finder_method = "find_all_by_#{ through[0..-2] }_id"

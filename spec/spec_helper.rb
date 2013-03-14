@@ -1,4 +1,8 @@
 Bundler.require
+
+require 'simplecov'
+SimpleCov.start
+
 require './lib/sales_engine_web/server'
 require './lib/sales_engine_web/controllers/controller'
 require './lib/sales_engine_web/models/finder_methods'

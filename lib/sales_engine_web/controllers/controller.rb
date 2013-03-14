@@ -4,7 +4,7 @@ module SalesEngineWeb
     
     def self.route(table,function,params={})
       @table = camel_case(take_off_s(table))
-      @function = function
+      @function = function.to_sym
       get_response(params)
     end
 
