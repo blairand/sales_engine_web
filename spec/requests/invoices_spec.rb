@@ -133,25 +133,39 @@ describe "/invoices/" do
       end
     end
 
-    # describe "/invoices/:id/invoice_items" do
-    #   it "returns a collection of associated invoice items" do
-    #     get '/invoices/1/invoice_items'
-    #     output = JSON.parse(last_response.body)
-    #     expect( output.size ).to eq 1
-    #     expect( output[0]["credit_card_number"]).to eq "444412344440987"
-    #   end
-    # end
+    describe "/invoices/:id/invoice_items" do
+      it "returns a collection of associated invoice items" do
+        get '/invoices/1/invoice_items'
+        output = JSON.parse(last_response.body)
+        expect( output.size ).to eq 1
+        expect( output[0]["quantity"]).to eq 1
+      end
+    end
     
     describe "/invoices/:id/items" do
-      it "returns a collection of associated items"
+      it "returns a collection of associated items" do
+        get '/invoices/1/items'
+        output = JSON.parse(last_response.body)
+        expect( output.size ).to eq 1
+        expect( output[0]["unit_price"]).to eq 49999
+      end
     end
 
     describe "/invoices/:id/customer" do
-      it "returns the associated customer"
+      it "returns the associated customer"do
+        get '/invoices/1/customer'
+        output = JSON.parse(last_response.body)
+        expect( output["first_name"]).to eq "Blair"
+        expect( output["last_name"]).to eq "Anderson"
+      end
     end
     
     describe "/invoices/:id/merchant" do
-      it "returns the associated merchant"
+      it "returns the associated merchant"do
+        get '/invoices/1/merchant'
+        output = JSON.parse(last_response.body)
+        expect( output["name"]).to eq "Jumpstart Lab"
+      end
     end
   end
 

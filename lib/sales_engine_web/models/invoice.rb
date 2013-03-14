@@ -3,6 +3,11 @@ require './lib/sales_engine_web/models/database'
 module SalesEngineWeb
   class Invoice
     extend FinderMethods
+    has_many :transactions
+    has_many :invoice_items
+    belongs_to :customer
+    belongs_to :merchant
+
     attr_reader :id, :customer_id, :merchant_id, :status
 
     def initialize(params)
@@ -19,6 +24,10 @@ module SalesEngineWeb
 
     def self.table
       Database.invoices
+    end
+
+    def items
+      invoice_items.collect{|invoice_item| invoice_item.item}
     end
 
     def to_hash

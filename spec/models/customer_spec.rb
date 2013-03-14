@@ -72,7 +72,9 @@ module SalesEngineWeb
 
     describe "relationships" do 
       context "Find_all invoices by customer_id" do
-        it "returns a collection of associated invoices"
+        it "returns a collection of associated invoices" do
+          
+        end
       end
 
       context "find_all transactions by through invoice by customer_id" do
@@ -80,11 +82,6 @@ module SalesEngineWeb
       end
     end
 
-    describe "business intelligence" do
-      context "given successful transactions, group by merchant" do
-        it "returns a merchant where the customer has conducted the most successful transactions"
-      end
-    end
 
   end
 end

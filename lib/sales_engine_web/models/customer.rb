@@ -3,7 +3,9 @@ require './lib/sales_engine_web/models/database'
 module SalesEngineWeb
   class Customer
     extend FinderMethods
-
+    has_many :invoices
+    has_many_through :transactions, :invoices
+    
     attr_reader :id, :first_name, :last_name
 
     def initialize(params)

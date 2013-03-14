@@ -2,29 +2,19 @@ module SalesEngineWeb
   class Server < Sinatra::Base
 
     get '/:table/random' do |table|
-      Controller.route(table,:random)
+      Controller.route(table,:random).to_json
     end
 
     get '/:table/find' do |table|
-      Controller.route(table,:find,params)
+      Controller.route(table,:find,params).to_json
     end
 
     get '/:table/find_all' do |table|
-      Controller.route(table,:find_all,params)
+      Controller.route(table,:find_all,params).to_json
     end
 
-    get '/customers/:id/invoices' do |id|
-      Invoice.find_all_by_customer_id(id).to_json
-    end
-
-    get '/customers/:id/transactions' do |id|
-      invoices = Invoice.find_all_by_customer_id(id)
-      invoices.map{|invoice|Transaction.find_by_invoice_id(invoice.id)}.to_json
-    end
-
-    get '/invoices/:id/transactions' do |id|
-    # returns a collection of associated transactions
-      Transaction.find_all_by_invoice_id(id).to_json
+    get '/:table/:id/:function' do |table,id,function|
+      Controller.route(table,:find,:id => id).send(function.to_sym).to_json
     end
 
   end

@@ -3,6 +3,8 @@ require './lib/sales_engine_web/models/database'
 module SalesEngineWeb
   class InvoiceItem
     extend FinderMethods
+    belongs_to :item
+    belongs_to :invoice
 
     attr_reader :id, :item_id, :invoice_id, :quantity,:unit_price
 

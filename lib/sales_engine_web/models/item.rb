@@ -3,6 +3,7 @@ require './lib/sales_engine_web/models/database'
 module SalesEngineWeb
   class Item
     extend FinderMethods
+    belongs_to :merchant
 
     attr_reader :id, :name, :description, :unit_price, :merchant_id
 

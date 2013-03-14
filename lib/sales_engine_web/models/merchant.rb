@@ -3,6 +3,8 @@ require './lib/sales_engine_web/models/database'
 module SalesEngineWeb
   class Merchant
     extend FinderMethods
+    has_many :invoices
+    
     attr_reader :id, :name
 
     def initialize(params)

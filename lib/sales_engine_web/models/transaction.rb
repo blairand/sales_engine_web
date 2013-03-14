@@ -3,6 +3,7 @@ require './lib/sales_engine_web/models/database'
 module SalesEngineWeb
   class Transaction
     extend FinderMethods
+    belongs_to :invoice
     
     attr_reader :id, :invoice_id, :credit_card_number, :credit_card_expiration_date, :result
 

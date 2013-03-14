@@ -12,6 +12,7 @@ describe "/customers/" do
     merchant1
     invoice1
     transaction1
+    transaction2
   end
 
   let(:customer1){ SalesEngineWeb::Customer.create(
@@ -26,6 +27,12 @@ describe "/customers/" do
     :status => "Shipped") }
 
   let(:transaction1){ SalesEngineWeb::Transaction.create(
+    :invoice_id => 1,
+    :credit_card_number => 444412344440987,
+    :credit_card_expiration_date => 1,
+    :result => "Success") }
+
+  let(:transaction2){ SalesEngineWeb::Transaction.create(
     :invoice_id => 1,
     :credit_card_number => 444412344440987,
     :credit_card_expiration_date => 1,
@@ -104,7 +111,7 @@ describe "/customers/" do
       it "returns a collection of associated transactions" do 
         get "/customers/1/transactions" 
         output = JSON.parse(last_response.body)
-        expect( output.size ).to eq 1
+        expect( output.size ).to eq 2
         expect( output[0]['credit_card_number'] ).to eq "444412344440987"
       end
     end

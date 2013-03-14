@@ -3,20 +3,20 @@ module SalesEngineWeb
     attr_accessor :table, :function
     
     def self.route(table,function,params={})
-      @table = camel_case(de_pluralize(table))
+      @table = camel_case(take_off_s(table))
       @function = function
       get_response(params)
     end
 
     def self.get_response(params)
       if params == {}
-        SalesEngineWeb.const_get(@table).send(@function).to_json
+        SalesEngineWeb.const_get(@table).send(@function)
       else
-        SalesEngineWeb.const_get(@table).send(@function,params).to_json
+        SalesEngineWeb.const_get(@table).send(@function,params)
       end
     end
 
-    def self.de_pluralize(word)
+    def self.take_off_s(word)
       return word if word[-1] != "s"
       word[0..-2]
     end
