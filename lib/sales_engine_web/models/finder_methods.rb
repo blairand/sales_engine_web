@@ -19,14 +19,20 @@ module SalesEngineWeb
       new(result) if result
     end
 
+    def verify_finder(params,search)
+      params.keys.select do |attribute| 
+        self.respond_to?("#{search}#{attribute}")
+      end.pop
+    end
+
     def find(params)
-      attribute = params.keys.first
-      self.send("find_by_#{attribute}",params[attribute.to_sym])
+      attribute = verify_finder(params,"find_by_")
+      self.send("find_by_#{attribute}", params[attribute])
     end
 
     def find_all(params)
-      attribute = params.keys.first
-      self.send("find_all_by_#{attribute}",params[attribute.to_sym])
+      attribute = verify_finder(params,"find_all_by_")
+      self.send("find_all_by_#{attribute}", params[attribute])
     end
 
     def belongs_to(relation)
