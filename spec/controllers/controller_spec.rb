@@ -14,7 +14,7 @@ module SalesEngineWeb
         Invoice.should_not_receive(:random)
         Merchant.should_receive(:random)
 
-        Controller.route(table,:random)
+        Controller.random(table)
       end
     end
 
@@ -28,7 +28,7 @@ module SalesEngineWeb
         Merchant.should_not_receive(:random)
         InvoiceItem.should_receive(:random)
 
-        Controller.route(table,:random)
+        Controller.random(table)
       end
     end
 
@@ -36,7 +36,7 @@ module SalesEngineWeb
       it "sends message to the correct table" do
         table = "items"
         Item.should_receive(:random)
-        Controller.route(table,:random)
+        Controller.random(table)
       end
     end
 
@@ -44,7 +44,7 @@ module SalesEngineWeb
       it "sends message to the correct table" do
         table = "customers"
         Customer.should_receive(:random)
-        Controller.route(table,:random)
+        Controller.random(table)
       end
     end
 
@@ -52,7 +52,7 @@ module SalesEngineWeb
       it "sends message to the correct table" do
         table = "transactions"
         Transaction.should_receive(:random)
-        Controller.route(table,:random)
+        Controller.random(table)
       end
     end
 
@@ -67,7 +67,7 @@ module SalesEngineWeb
         Merchant.should_not_receive(:random)
         InvoiceItem.should_receive(:find)
 
-        Controller.route(table,:find,params)
+        Controller.find(table,params)
       end
     end
 

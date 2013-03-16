@@ -18,24 +18,9 @@ module SalesEngineWeb
       klass(table).send(:find,params).send(function)
     end
 
-    def self.route(table,function,params={})
-      @table = camel_case(take_off_s(table))
-      @function = function.to_sym
-      get_response(params)
-    end
-
-    def self.get_response(params)
-      if params == {}
-        SalesEngineWeb.const_get(@table).send(@function)
-      else
-        SalesEngineWeb.const_get(@table).send(@function,params)
-      end
-    end
-
     def self.klass(table)
       SalesEngineWeb.const_get(camel_case(take_off_s(table)))
     end
-    
 
     def self.take_off_s(word)
       return word if word[-1] != "s"
